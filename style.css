@@ -6,32 +6,25 @@
 
 body {
     font-family: Arial, sans-serif;
-    background: #f4f6f9;
-    background-image: url('ph.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    min-width: 100vh;
+    background: url('ph.jpg') no-repeat center/cover;
+    min-height: 100vh; 
 }
 
 /* Overlay */
 body::before {
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    inset: 0;
+    background: rgba(0,0,0,0.5);
     z-index: -1;
 }
 
 .container {
     max-width: 500px;
-    margin: 10px auto;
+    margin: 20px auto;
     padding: 15px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 10px;
+    background: rgba(255,255,255,0.95);
+    border-radius: 12px;
 }
 
 h1 {
@@ -46,18 +39,20 @@ h1 {
     gap: 10px;
 }
 
-.form input {
+.form input,
+.form button {
     padding: 10px;
+    border-radius: 6px;
+}
+
+.form input {
     border: 1px solid #ccc;
-    border-radius: 5px;
 }
 
 .form button {
-    padding: 10px;
     border: none;
     background: #007bff;
     color: white;
-    border-radius: 5px;
 }
 
 /* Search */
@@ -65,56 +60,60 @@ h1 {
     width: 100%;
     margin: 15px 0;
     padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
 }
 
-/* Contact List */
+/* List */
 .list {
     list-style: none;
 }
 
 .list li {
-    background: white;
+    background: #fff;
     margin-bottom: 10px;
     padding: 12px;
     border-radius: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
 }
 
-/* Buttons */
 .actions {
     display: flex;
     justify-content: space-between;
     margin-top: 8px;
 }
 
+button {
+    cursor: pointer;
+}
+
 button.delete {
     background: red;
     color: white;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 5px;
+    padding: 10px 15px;
 }
 
 button.edit {
     background: orange;
     color: white;
-    border: none;
-    padding: 6px 10px;
-    border-radius: 5px;
+    padding: 10px 15px;
 }
 
-/* Responsive */
+/* 📱 Mobile Responsive */
 @media (max-width: 480px) {
+    .container {
+        margin: 10px;
+        padding: 10px;
+    }
+
     h1 {
-        font-size: 20px;
+        font-size: 18px;
     }
 
     .form input,
     .form button {
+        font-size: 14px;
+        padding: 8px;
+    }
+
+    .list li {
         font-size: 14px;
     }
 }
