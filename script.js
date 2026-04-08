@@ -14,7 +14,7 @@ async function fetchContacts() {
     const data = await res.json();
     contacts = data;
     displayContacts(contacts);
-    } catch (error) {
+    } catch {
     alert("Failed to fetch contacts");
     }
 }
@@ -27,15 +27,22 @@ function displayContacts(data) {
     const li = document.createElement("li");
 
     li.innerHTML = `
-        <strong>${contact.name}</strong>
-        <span>${contact.phone}</span>
-        <span>${contact.email}</span>
+            <strong>${contact.name}</strong>
+            <span>${contact.phone}</span>
+            <span>${contact.email}</span>
+            <div class="actions">
+                <button class="edit">Edit</button>
+                <button class="delete">Delete</button>
+            </div>
+        `;
 
-        <div class="actions">
-        <button class="edit" onclick="editContact(${contact.id})">Edit</button>
-        <button class="delete" onclick="deleteContact(${contact.id})">Delete</button>
-        </div>
-    `;
+    // Attach events
+    li.querySelector(".delete").addEventListener("click", () =>
+        deleteContact(contact.id),
+    );
+    li.querySelector(".edit").addEventListener("click", () =>
+        editContact(contact.id),
+    );
 
     contactList.appendChild(li);
     });
@@ -45,11 +52,10 @@ function displayContacts(data) {
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const name = document.getElementById("name").value.trim();
-    const phone = document.getElementById("phone").value.trim();
-    const email = document.getElementById("email").value.trim();
+    const name = form.name.value.trim();
+    const phone = form.phone.value.trim();
+    const email = form.email.value.trim();
 
-  // VALIDATION
     if (!name || !phone || !email) {
     alert("All fields are required");
     return;
@@ -64,7 +70,6 @@ form.addEventListener("submit", async (e) => {
 
     try {
     if (editId) {
-      // UPDATE
         await fetch(`${API_URL}/${editId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -77,7 +82,6 @@ form.addEventListener("submit", async (e) => {
 
         editId = null;
     } else {
-      // ADD
         const res = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -85,44 +89,41 @@ form.addEventListener("submit", async (e) => {
         });
 
         const newContact = await res.json();
+      newContact.id = Date.now(); // FIX unique ID
         contacts.push(newContact);
     }
 
     displayContacts(contacts);
     form.reset();
-    } catch (error) {
+    } catch {
     alert("Operation failed");
     }
 });
 
-// DELETE CONTACT
+// DELETE
 async function deleteContact(id) {
     try {
     await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-
     contacts = contacts.filter((c) => c.id !== id);
     displayContacts(contacts);
-    } catch (error) {
+    } catch {
     alert("Delete failed");
     }
 }
 
-// EDIT CONTACT
+// EDIT
 function editContact(id) {
     const contact = contacts.find((c) => c.id === id);
-    document.getElementById("name").value = contact.name;
-    document.getElementById("phone").value = contact.phone;
-    document.getElementById("email").value = contact.email;
-
+    form.name.value = contact.name;
+    form.phone.value = contact.phone;
+    form.email.value = contact.email;
     editId = id;
 }
 
 // SEARCH
 searchInput.addEventListener("input", () => {
     const value = searchInput.value.toLowerCase();
-
     const filtered = contacts.filter((c) => c.name.toLowerCase().includes(value));
-
     displayContacts(filtered);
 });
 
