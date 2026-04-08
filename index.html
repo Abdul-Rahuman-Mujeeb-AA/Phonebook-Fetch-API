@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Phonebook App</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phonebook App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-        <div class="container">
-            <h1>📱 Phonebook</h1>
+<div class="container">
+    <h1>📱 Phonebook</h1>
 
-            <!-- Form -->
-            <form id="contactForm" class="form">
-                <input type="text" id="name" placeholder="Name">
-                <input type="text" id="phone" placeholder="Phone Number">
-                <input type="email" id="email" placeholder="Email">
-                <button type="submit">Add Contact</button>
-            </form>
+    <!-- Form -->
+    <form id="contactForm" class="form">
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="text" id="phone" placeholder="Phone Number" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <button type="submit">Add Contact</button>
+    </form>
 
-            <!-- Search -->
-            <input type="text" id="search" class="search"
-                placeholder="🔍 Search by name">
+    <!-- Search -->
+    <input type="text" id="search" class="search" placeholder="🔍 Search by name">
 
-            <!-- Contact List -->
-            <ul id="contactList" class="list"></ul>
-        </div>
+    <!-- Contact List -->
+    <ul id="contactList" class="list"></ul>
+</div>
 
-        <script src="script.js"></script>
-    </body>
+<script src="script.js"></script>
+</body>
 </html>
